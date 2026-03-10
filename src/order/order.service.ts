@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { CheckoutDto } from './dtos/checkout.dto';
 
@@ -24,7 +24,7 @@ export class OrderService {
     });
 
     if (!cart || cart.cartItems.length === 0) {
-      throw new Error('Cart is empty');
+      throw new BadRequestException('Cart is empty');
     }
 
     const totalPrice = cart.cartItems.reduce((sum, item) => {
@@ -35,55 +35,59 @@ export class OrderService {
       return sum + price * item.quantity;
     }, 0);
 
-    const order = await this.prisma.order.create({
-      data: {
-        userId,
-        totalPrice,
-        pickupTime: new Date(data.pickupTime),
-        status: 'PENDING',
-        method: data.paymentMethod,
-        amount: totalPrice,
-        paymentStatus: 'UNPAID',
-      },
-    });
-
-    for (const item of cart.cartItems) {
-      const orderItem = await this.prisma.orderItem.create({
+    return this.prisma.$transaction(async (tx) => {
+      const order = await tx.order.create({
         data: {
-          orderId: order.id,
-          menuId: item.menuId,
-          quantity: item.quantity,
-          price: item.menu.price,
+          userId,
+          totalPrice,
+          pickupTime: new Date(data.pickupTime),
+          status: 'PENDING',
+          method: data.paymentMethod,
+          amount: totalPrice,
+          paymentStatus: 'UNPAID',
         },
       });
 
-      if (item.addons.length > 0) {
-        await this.prisma.orderItemAddon.createMany({
-          data: item.addons.map((a) => ({
-            orderItemId: orderItem.id,
-            addonId: a.addonId,
-          })),
-        });
-      }
-    }
+      for (const item of cart.cartItems) {
+        const addonPrice = item.addons.reduce((s, a) => s + a.addon.price, 0);
 
-    // ลบ CartItemAddon ก่อน
-    await this.prisma.cartItemAddon.deleteMany({
-      where: {
-        cartItem: {
+        const itemPrice = item.menu.price + addonPrice;
+
+        const orderItem = await tx.orderItem.create({
+          data: {
+            orderId: order.id,
+            menuId: item.menuId,
+            quantity: item.quantity,
+            price: itemPrice,
+          },
+        });
+
+        if (item.addons.length > 0) {
+          await tx.orderItemAddon.createMany({
+            data: item.addons.map((a) => ({
+              orderItemId: orderItem.id,
+              addonId: a.addonId,
+            })),
+          });
+        }
+      }
+
+      await tx.cartItemAddon.deleteMany({
+        where: {
+          cartItem: {
+            cartId: cart.id,
+          },
+        },
+      });
+
+      await tx.cartItem.deleteMany({
+        where: {
           cartId: cart.id,
         },
-      },
-    });
+      });
 
-    // แล้วค่อยลบ CartItem
-    await this.prisma.cartItem.deleteMany({
-      where: {
-        cartId: cart.id,
-      },
+      return order;
     });
-
-    return order;
   }
 
   async getOrders(userId: string) {
