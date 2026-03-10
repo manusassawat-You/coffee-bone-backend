@@ -54,10 +54,12 @@ export const ModelName = {
   User: 'User',
   Cart: 'Cart',
   CartItem: 'CartItem',
+  CartItemAddon: 'CartItemAddon',
   Menu: 'Menu',
   Addon: 'Addon',
   Order: 'Order',
-  OrderItem: 'OrderItem'
+  OrderItem: 'OrderItem',
+  OrderItemAddon: 'OrderItemAddon'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -103,14 +105,21 @@ export const CartItemScalarFieldEnum = {
   id: 'id',
   cartId: 'cartId',
   menuId: 'menuId',
-  coffeeBeanId: 'coffeeBeanId',
   quantity: 'quantity',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  addonId: 'addonId'
+  updatedAt: 'updatedAt'
 } as const
 
 export type CartItemScalarFieldEnum = (typeof CartItemScalarFieldEnum)[keyof typeof CartItemScalarFieldEnum]
+
+
+export const CartItemAddonScalarFieldEnum = {
+  id: 'id',
+  cartItemId: 'cartItemId',
+  addonId: 'addonId'
+} as const
+
+export type CartItemAddonScalarFieldEnum = (typeof CartItemAddonScalarFieldEnum)[keyof typeof CartItemAddonScalarFieldEnum]
 
 
 export const MenuScalarFieldEnum = {
@@ -158,13 +167,20 @@ export const OrderItemScalarFieldEnum = {
   id: 'id',
   orderId: 'orderId',
   menuId: 'menuId',
-  coffeeBeanId: 'coffeeBeanId',
   quantity: 'quantity',
-  price: 'price',
-  addonId: 'addonId'
+  price: 'price'
 } as const
 
 export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
+
+
+export const OrderItemAddonScalarFieldEnum = {
+  id: 'id',
+  orderItemId: 'orderItemId',
+  addonId: 'addonId'
+} as const
+
+export type OrderItemAddonScalarFieldEnum = (typeof OrderItemAddonScalarFieldEnum)[keyof typeof OrderItemAddonScalarFieldEnum]
 
 
 export const SortOrder = {

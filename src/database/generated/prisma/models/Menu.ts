@@ -448,6 +448,10 @@ export type MenuUpdateOneRequiredWithoutCartItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MenuUpdateToOneWithWhereWithoutCartItemsInput, Prisma.MenuUpdateWithoutCartItemsInput>, Prisma.MenuUncheckedUpdateWithoutCartItemsInput>
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type FloatFieldUpdateOperationsInput = {
   set?: number
   increment?: number

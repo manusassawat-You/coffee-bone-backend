@@ -64,18 +64,26 @@ model Cart {
 }
 
 model CartItem {
-  id           String   @id @default(uuid())
-  cartId       String
-  menuId       String
-  coffeeBeanId String
-  quantity     Int
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id        String   @id @default(uuid())
+  cartId    String
+  menuId    String
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  cart    Cart    @relation(fields: [cartId], references: [id])
-  menu    Menu    @relation(fields: [menuId], references: [id])
-  addon   Addon[]
-  addonId String?
+  cart Cart @relation(fields: [cartId], references: [id])
+  menu Menu @relation(fields: [menuId], references: [id])
+
+  addons CartItemAddon[]
+}
+
+model CartItemAddon {
+  id         String @id @default(uuid())
+  cartItemId String
+  addonId    String
+
+  cartItem CartItem @relation(fields: [cartItemId], references: [id])
+  addon    Addon    @relation(fields: [addonId], references: [id])
 }
 
 model Menu {
@@ -99,8 +107,8 @@ model Addon {
   title String
   price Float
 
-  cartItems  CartItem[]
-  orderItems OrderItem[]
+  cartItemAddons  CartItemAddon[]
+  orderItemAddons OrderItemAddon[]
 }
 
 model Order {
@@ -122,15 +130,23 @@ model Order {
 }
 
 model OrderItem {
-  id           String @id @default(uuid())
-  orderId      String
-  menuId       String
-  coffeeBeanId String
-  quantity     Int
-  price        Float
+  id       String @id @default(uuid())
+  orderId  String
+  menuId   String
+  quantity Int
+  price    Float
 
-  order   Order   @relation(fields: [orderId], references: [id])
-  menu    Menu    @relation(fields: [menuId], references: [id])
-  addon   Addon[]
-  addonId String?
+  order Order @relation(fields: [orderId], references: [id])
+  menu  Menu  @relation(fields: [menuId], references: [id])
+
+  addons OrderItemAddon[]
+}
+
+model OrderItemAddon {
+  id          String @id @default(uuid())
+  orderItemId String
+  addonId     String
+
+  orderItem OrderItem @relation(fields: [orderItemId], references: [id])
+  addon     Addon     @relation(fields: [addonId], references: [id])
 }

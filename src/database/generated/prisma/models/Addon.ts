@@ -208,8 +208,8 @@ export type AddonWhereInput = {
   type?: Prisma.EnumAddonTypeFilter<"Addon"> | $Enums.AddonType
   title?: Prisma.StringFilter<"Addon"> | string
   price?: Prisma.FloatFilter<"Addon"> | number
-  cartItems?: Prisma.CartItemListRelationFilter
-  orderItems?: Prisma.OrderItemListRelationFilter
+  cartItemAddons?: Prisma.CartItemAddonListRelationFilter
+  orderItemAddons?: Prisma.OrderItemAddonListRelationFilter
 }
 
 export type AddonOrderByWithRelationInput = {
@@ -217,8 +217,8 @@ export type AddonOrderByWithRelationInput = {
   type?: Prisma.SortOrder
   title?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  cartItems?: Prisma.CartItemOrderByRelationAggregateInput
-  orderItems?: Prisma.OrderItemOrderByRelationAggregateInput
+  cartItemAddons?: Prisma.CartItemAddonOrderByRelationAggregateInput
+  orderItemAddons?: Prisma.OrderItemAddonOrderByRelationAggregateInput
 }
 
 export type AddonWhereUniqueInput = Prisma.AtLeast<{
@@ -229,8 +229,8 @@ export type AddonWhereUniqueInput = Prisma.AtLeast<{
   type?: Prisma.EnumAddonTypeFilter<"Addon"> | $Enums.AddonType
   title?: Prisma.StringFilter<"Addon"> | string
   price?: Prisma.FloatFilter<"Addon"> | number
-  cartItems?: Prisma.CartItemListRelationFilter
-  orderItems?: Prisma.OrderItemListRelationFilter
+  cartItemAddons?: Prisma.CartItemAddonListRelationFilter
+  orderItemAddons?: Prisma.OrderItemAddonListRelationFilter
 }, "id">
 
 export type AddonOrderByWithAggregationInput = {
@@ -260,8 +260,8 @@ export type AddonCreateInput = {
   type: $Enums.AddonType
   title: string
   price: number
-  cartItems?: Prisma.CartItemCreateNestedManyWithoutAddonInput
-  orderItems?: Prisma.OrderItemCreateNestedManyWithoutAddonInput
+  cartItemAddons?: Prisma.CartItemAddonCreateNestedManyWithoutAddonInput
+  orderItemAddons?: Prisma.OrderItemAddonCreateNestedManyWithoutAddonInput
 }
 
 export type AddonUncheckedCreateInput = {
@@ -269,8 +269,8 @@ export type AddonUncheckedCreateInput = {
   type: $Enums.AddonType
   title: string
   price: number
-  cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutAddonInput
-  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutAddonInput
+  cartItemAddons?: Prisma.CartItemAddonUncheckedCreateNestedManyWithoutAddonInput
+  orderItemAddons?: Prisma.OrderItemAddonUncheckedCreateNestedManyWithoutAddonInput
 }
 
 export type AddonUpdateInput = {
@@ -278,8 +278,8 @@ export type AddonUpdateInput = {
   type?: Prisma.EnumAddonTypeFieldUpdateOperationsInput | $Enums.AddonType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  cartItems?: Prisma.CartItemUpdateManyWithoutAddonNestedInput
-  orderItems?: Prisma.OrderItemUpdateManyWithoutAddonNestedInput
+  cartItemAddons?: Prisma.CartItemAddonUpdateManyWithoutAddonNestedInput
+  orderItemAddons?: Prisma.OrderItemAddonUpdateManyWithoutAddonNestedInput
 }
 
 export type AddonUncheckedUpdateInput = {
@@ -287,8 +287,8 @@ export type AddonUncheckedUpdateInput = {
   type?: Prisma.EnumAddonTypeFieldUpdateOperationsInput | $Enums.AddonType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  cartItems?: Prisma.CartItemUncheckedUpdateManyWithoutAddonNestedInput
-  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutAddonNestedInput
+  cartItemAddons?: Prisma.CartItemAddonUncheckedUpdateManyWithoutAddonNestedInput
+  orderItemAddons?: Prisma.OrderItemAddonUncheckedUpdateManyWithoutAddonNestedInput
 }
 
 export type AddonCreateManyInput = {
@@ -312,14 +312,9 @@ export type AddonUncheckedUpdateManyInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
-export type AddonListRelationFilter = {
-  every?: Prisma.AddonWhereInput
-  some?: Prisma.AddonWhereInput
-  none?: Prisma.AddonWhereInput
-}
-
-export type AddonOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
+export type AddonScalarRelationFilter = {
+  is?: Prisma.AddonWhereInput
+  isNot?: Prisma.AddonWhereInput
 }
 
 export type AddonCountOrderByAggregateInput = {
@@ -351,214 +346,132 @@ export type AddonSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
 }
 
-export type AddonCreateNestedManyWithoutCartItemsInput = {
-  create?: Prisma.XOR<Prisma.AddonCreateWithoutCartItemsInput, Prisma.AddonUncheckedCreateWithoutCartItemsInput> | Prisma.AddonCreateWithoutCartItemsInput[] | Prisma.AddonUncheckedCreateWithoutCartItemsInput[]
-  connectOrCreate?: Prisma.AddonCreateOrConnectWithoutCartItemsInput | Prisma.AddonCreateOrConnectWithoutCartItemsInput[]
-  connect?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
+export type AddonCreateNestedOneWithoutCartItemAddonsInput = {
+  create?: Prisma.XOR<Prisma.AddonCreateWithoutCartItemAddonsInput, Prisma.AddonUncheckedCreateWithoutCartItemAddonsInput>
+  connectOrCreate?: Prisma.AddonCreateOrConnectWithoutCartItemAddonsInput
+  connect?: Prisma.AddonWhereUniqueInput
 }
 
-export type AddonUncheckedCreateNestedManyWithoutCartItemsInput = {
-  create?: Prisma.XOR<Prisma.AddonCreateWithoutCartItemsInput, Prisma.AddonUncheckedCreateWithoutCartItemsInput> | Prisma.AddonCreateWithoutCartItemsInput[] | Prisma.AddonUncheckedCreateWithoutCartItemsInput[]
-  connectOrCreate?: Prisma.AddonCreateOrConnectWithoutCartItemsInput | Prisma.AddonCreateOrConnectWithoutCartItemsInput[]
-  connect?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
-}
-
-export type AddonUpdateManyWithoutCartItemsNestedInput = {
-  create?: Prisma.XOR<Prisma.AddonCreateWithoutCartItemsInput, Prisma.AddonUncheckedCreateWithoutCartItemsInput> | Prisma.AddonCreateWithoutCartItemsInput[] | Prisma.AddonUncheckedCreateWithoutCartItemsInput[]
-  connectOrCreate?: Prisma.AddonCreateOrConnectWithoutCartItemsInput | Prisma.AddonCreateOrConnectWithoutCartItemsInput[]
-  upsert?: Prisma.AddonUpsertWithWhereUniqueWithoutCartItemsInput | Prisma.AddonUpsertWithWhereUniqueWithoutCartItemsInput[]
-  set?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
-  disconnect?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
-  delete?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
-  connect?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
-  update?: Prisma.AddonUpdateWithWhereUniqueWithoutCartItemsInput | Prisma.AddonUpdateWithWhereUniqueWithoutCartItemsInput[]
-  updateMany?: Prisma.AddonUpdateManyWithWhereWithoutCartItemsInput | Prisma.AddonUpdateManyWithWhereWithoutCartItemsInput[]
-  deleteMany?: Prisma.AddonScalarWhereInput | Prisma.AddonScalarWhereInput[]
-}
-
-export type AddonUncheckedUpdateManyWithoutCartItemsNestedInput = {
-  create?: Prisma.XOR<Prisma.AddonCreateWithoutCartItemsInput, Prisma.AddonUncheckedCreateWithoutCartItemsInput> | Prisma.AddonCreateWithoutCartItemsInput[] | Prisma.AddonUncheckedCreateWithoutCartItemsInput[]
-  connectOrCreate?: Prisma.AddonCreateOrConnectWithoutCartItemsInput | Prisma.AddonCreateOrConnectWithoutCartItemsInput[]
-  upsert?: Prisma.AddonUpsertWithWhereUniqueWithoutCartItemsInput | Prisma.AddonUpsertWithWhereUniqueWithoutCartItemsInput[]
-  set?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
-  disconnect?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
-  delete?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
-  connect?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
-  update?: Prisma.AddonUpdateWithWhereUniqueWithoutCartItemsInput | Prisma.AddonUpdateWithWhereUniqueWithoutCartItemsInput[]
-  updateMany?: Prisma.AddonUpdateManyWithWhereWithoutCartItemsInput | Prisma.AddonUpdateManyWithWhereWithoutCartItemsInput[]
-  deleteMany?: Prisma.AddonScalarWhereInput | Prisma.AddonScalarWhereInput[]
+export type AddonUpdateOneRequiredWithoutCartItemAddonsNestedInput = {
+  create?: Prisma.XOR<Prisma.AddonCreateWithoutCartItemAddonsInput, Prisma.AddonUncheckedCreateWithoutCartItemAddonsInput>
+  connectOrCreate?: Prisma.AddonCreateOrConnectWithoutCartItemAddonsInput
+  upsert?: Prisma.AddonUpsertWithoutCartItemAddonsInput
+  connect?: Prisma.AddonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AddonUpdateToOneWithWhereWithoutCartItemAddonsInput, Prisma.AddonUpdateWithoutCartItemAddonsInput>, Prisma.AddonUncheckedUpdateWithoutCartItemAddonsInput>
 }
 
 export type EnumAddonTypeFieldUpdateOperationsInput = {
   set?: $Enums.AddonType
 }
 
-export type AddonCreateNestedManyWithoutOrderItemsInput = {
-  create?: Prisma.XOR<Prisma.AddonCreateWithoutOrderItemsInput, Prisma.AddonUncheckedCreateWithoutOrderItemsInput> | Prisma.AddonCreateWithoutOrderItemsInput[] | Prisma.AddonUncheckedCreateWithoutOrderItemsInput[]
-  connectOrCreate?: Prisma.AddonCreateOrConnectWithoutOrderItemsInput | Prisma.AddonCreateOrConnectWithoutOrderItemsInput[]
-  connect?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
+export type AddonCreateNestedOneWithoutOrderItemAddonsInput = {
+  create?: Prisma.XOR<Prisma.AddonCreateWithoutOrderItemAddonsInput, Prisma.AddonUncheckedCreateWithoutOrderItemAddonsInput>
+  connectOrCreate?: Prisma.AddonCreateOrConnectWithoutOrderItemAddonsInput
+  connect?: Prisma.AddonWhereUniqueInput
 }
 
-export type AddonUncheckedCreateNestedManyWithoutOrderItemsInput = {
-  create?: Prisma.XOR<Prisma.AddonCreateWithoutOrderItemsInput, Prisma.AddonUncheckedCreateWithoutOrderItemsInput> | Prisma.AddonCreateWithoutOrderItemsInput[] | Prisma.AddonUncheckedCreateWithoutOrderItemsInput[]
-  connectOrCreate?: Prisma.AddonCreateOrConnectWithoutOrderItemsInput | Prisma.AddonCreateOrConnectWithoutOrderItemsInput[]
-  connect?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
+export type AddonUpdateOneRequiredWithoutOrderItemAddonsNestedInput = {
+  create?: Prisma.XOR<Prisma.AddonCreateWithoutOrderItemAddonsInput, Prisma.AddonUncheckedCreateWithoutOrderItemAddonsInput>
+  connectOrCreate?: Prisma.AddonCreateOrConnectWithoutOrderItemAddonsInput
+  upsert?: Prisma.AddonUpsertWithoutOrderItemAddonsInput
+  connect?: Prisma.AddonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AddonUpdateToOneWithWhereWithoutOrderItemAddonsInput, Prisma.AddonUpdateWithoutOrderItemAddonsInput>, Prisma.AddonUncheckedUpdateWithoutOrderItemAddonsInput>
 }
 
-export type AddonUpdateManyWithoutOrderItemsNestedInput = {
-  create?: Prisma.XOR<Prisma.AddonCreateWithoutOrderItemsInput, Prisma.AddonUncheckedCreateWithoutOrderItemsInput> | Prisma.AddonCreateWithoutOrderItemsInput[] | Prisma.AddonUncheckedCreateWithoutOrderItemsInput[]
-  connectOrCreate?: Prisma.AddonCreateOrConnectWithoutOrderItemsInput | Prisma.AddonCreateOrConnectWithoutOrderItemsInput[]
-  upsert?: Prisma.AddonUpsertWithWhereUniqueWithoutOrderItemsInput | Prisma.AddonUpsertWithWhereUniqueWithoutOrderItemsInput[]
-  set?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
-  disconnect?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
-  delete?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
-  connect?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
-  update?: Prisma.AddonUpdateWithWhereUniqueWithoutOrderItemsInput | Prisma.AddonUpdateWithWhereUniqueWithoutOrderItemsInput[]
-  updateMany?: Prisma.AddonUpdateManyWithWhereWithoutOrderItemsInput | Prisma.AddonUpdateManyWithWhereWithoutOrderItemsInput[]
-  deleteMany?: Prisma.AddonScalarWhereInput | Prisma.AddonScalarWhereInput[]
-}
-
-export type AddonUncheckedUpdateManyWithoutOrderItemsNestedInput = {
-  create?: Prisma.XOR<Prisma.AddonCreateWithoutOrderItemsInput, Prisma.AddonUncheckedCreateWithoutOrderItemsInput> | Prisma.AddonCreateWithoutOrderItemsInput[] | Prisma.AddonUncheckedCreateWithoutOrderItemsInput[]
-  connectOrCreate?: Prisma.AddonCreateOrConnectWithoutOrderItemsInput | Prisma.AddonCreateOrConnectWithoutOrderItemsInput[]
-  upsert?: Prisma.AddonUpsertWithWhereUniqueWithoutOrderItemsInput | Prisma.AddonUpsertWithWhereUniqueWithoutOrderItemsInput[]
-  set?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
-  disconnect?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
-  delete?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
-  connect?: Prisma.AddonWhereUniqueInput | Prisma.AddonWhereUniqueInput[]
-  update?: Prisma.AddonUpdateWithWhereUniqueWithoutOrderItemsInput | Prisma.AddonUpdateWithWhereUniqueWithoutOrderItemsInput[]
-  updateMany?: Prisma.AddonUpdateManyWithWhereWithoutOrderItemsInput | Prisma.AddonUpdateManyWithWhereWithoutOrderItemsInput[]
-  deleteMany?: Prisma.AddonScalarWhereInput | Prisma.AddonScalarWhereInput[]
-}
-
-export type AddonCreateWithoutCartItemsInput = {
+export type AddonCreateWithoutCartItemAddonsInput = {
   id?: string
   type: $Enums.AddonType
   title: string
   price: number
-  orderItems?: Prisma.OrderItemCreateNestedManyWithoutAddonInput
+  orderItemAddons?: Prisma.OrderItemAddonCreateNestedManyWithoutAddonInput
 }
 
-export type AddonUncheckedCreateWithoutCartItemsInput = {
+export type AddonUncheckedCreateWithoutCartItemAddonsInput = {
   id?: string
   type: $Enums.AddonType
   title: string
   price: number
-  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutAddonInput
+  orderItemAddons?: Prisma.OrderItemAddonUncheckedCreateNestedManyWithoutAddonInput
 }
 
-export type AddonCreateOrConnectWithoutCartItemsInput = {
+export type AddonCreateOrConnectWithoutCartItemAddonsInput = {
   where: Prisma.AddonWhereUniqueInput
-  create: Prisma.XOR<Prisma.AddonCreateWithoutCartItemsInput, Prisma.AddonUncheckedCreateWithoutCartItemsInput>
+  create: Prisma.XOR<Prisma.AddonCreateWithoutCartItemAddonsInput, Prisma.AddonUncheckedCreateWithoutCartItemAddonsInput>
 }
 
-export type AddonUpsertWithWhereUniqueWithoutCartItemsInput = {
-  where: Prisma.AddonWhereUniqueInput
-  update: Prisma.XOR<Prisma.AddonUpdateWithoutCartItemsInput, Prisma.AddonUncheckedUpdateWithoutCartItemsInput>
-  create: Prisma.XOR<Prisma.AddonCreateWithoutCartItemsInput, Prisma.AddonUncheckedCreateWithoutCartItemsInput>
+export type AddonUpsertWithoutCartItemAddonsInput = {
+  update: Prisma.XOR<Prisma.AddonUpdateWithoutCartItemAddonsInput, Prisma.AddonUncheckedUpdateWithoutCartItemAddonsInput>
+  create: Prisma.XOR<Prisma.AddonCreateWithoutCartItemAddonsInput, Prisma.AddonUncheckedCreateWithoutCartItemAddonsInput>
+  where?: Prisma.AddonWhereInput
 }
 
-export type AddonUpdateWithWhereUniqueWithoutCartItemsInput = {
-  where: Prisma.AddonWhereUniqueInput
-  data: Prisma.XOR<Prisma.AddonUpdateWithoutCartItemsInput, Prisma.AddonUncheckedUpdateWithoutCartItemsInput>
+export type AddonUpdateToOneWithWhereWithoutCartItemAddonsInput = {
+  where?: Prisma.AddonWhereInput
+  data: Prisma.XOR<Prisma.AddonUpdateWithoutCartItemAddonsInput, Prisma.AddonUncheckedUpdateWithoutCartItemAddonsInput>
 }
 
-export type AddonUpdateManyWithWhereWithoutCartItemsInput = {
-  where: Prisma.AddonScalarWhereInput
-  data: Prisma.XOR<Prisma.AddonUpdateManyMutationInput, Prisma.AddonUncheckedUpdateManyWithoutCartItemsInput>
+export type AddonUpdateWithoutCartItemAddonsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAddonTypeFieldUpdateOperationsInput | $Enums.AddonType
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  orderItemAddons?: Prisma.OrderItemAddonUpdateManyWithoutAddonNestedInput
 }
 
-export type AddonScalarWhereInput = {
-  AND?: Prisma.AddonScalarWhereInput | Prisma.AddonScalarWhereInput[]
-  OR?: Prisma.AddonScalarWhereInput[]
-  NOT?: Prisma.AddonScalarWhereInput | Prisma.AddonScalarWhereInput[]
-  id?: Prisma.StringFilter<"Addon"> | string
-  type?: Prisma.EnumAddonTypeFilter<"Addon"> | $Enums.AddonType
-  title?: Prisma.StringFilter<"Addon"> | string
-  price?: Prisma.FloatFilter<"Addon"> | number
+export type AddonUncheckedUpdateWithoutCartItemAddonsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumAddonTypeFieldUpdateOperationsInput | $Enums.AddonType
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  orderItemAddons?: Prisma.OrderItemAddonUncheckedUpdateManyWithoutAddonNestedInput
 }
 
-export type AddonCreateWithoutOrderItemsInput = {
+export type AddonCreateWithoutOrderItemAddonsInput = {
   id?: string
   type: $Enums.AddonType
   title: string
   price: number
-  cartItems?: Prisma.CartItemCreateNestedManyWithoutAddonInput
+  cartItemAddons?: Prisma.CartItemAddonCreateNestedManyWithoutAddonInput
 }
 
-export type AddonUncheckedCreateWithoutOrderItemsInput = {
+export type AddonUncheckedCreateWithoutOrderItemAddonsInput = {
   id?: string
   type: $Enums.AddonType
   title: string
   price: number
-  cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutAddonInput
+  cartItemAddons?: Prisma.CartItemAddonUncheckedCreateNestedManyWithoutAddonInput
 }
 
-export type AddonCreateOrConnectWithoutOrderItemsInput = {
+export type AddonCreateOrConnectWithoutOrderItemAddonsInput = {
   where: Prisma.AddonWhereUniqueInput
-  create: Prisma.XOR<Prisma.AddonCreateWithoutOrderItemsInput, Prisma.AddonUncheckedCreateWithoutOrderItemsInput>
+  create: Prisma.XOR<Prisma.AddonCreateWithoutOrderItemAddonsInput, Prisma.AddonUncheckedCreateWithoutOrderItemAddonsInput>
 }
 
-export type AddonUpsertWithWhereUniqueWithoutOrderItemsInput = {
-  where: Prisma.AddonWhereUniqueInput
-  update: Prisma.XOR<Prisma.AddonUpdateWithoutOrderItemsInput, Prisma.AddonUncheckedUpdateWithoutOrderItemsInput>
-  create: Prisma.XOR<Prisma.AddonCreateWithoutOrderItemsInput, Prisma.AddonUncheckedCreateWithoutOrderItemsInput>
+export type AddonUpsertWithoutOrderItemAddonsInput = {
+  update: Prisma.XOR<Prisma.AddonUpdateWithoutOrderItemAddonsInput, Prisma.AddonUncheckedUpdateWithoutOrderItemAddonsInput>
+  create: Prisma.XOR<Prisma.AddonCreateWithoutOrderItemAddonsInput, Prisma.AddonUncheckedCreateWithoutOrderItemAddonsInput>
+  where?: Prisma.AddonWhereInput
 }
 
-export type AddonUpdateWithWhereUniqueWithoutOrderItemsInput = {
-  where: Prisma.AddonWhereUniqueInput
-  data: Prisma.XOR<Prisma.AddonUpdateWithoutOrderItemsInput, Prisma.AddonUncheckedUpdateWithoutOrderItemsInput>
+export type AddonUpdateToOneWithWhereWithoutOrderItemAddonsInput = {
+  where?: Prisma.AddonWhereInput
+  data: Prisma.XOR<Prisma.AddonUpdateWithoutOrderItemAddonsInput, Prisma.AddonUncheckedUpdateWithoutOrderItemAddonsInput>
 }
 
-export type AddonUpdateManyWithWhereWithoutOrderItemsInput = {
-  where: Prisma.AddonScalarWhereInput
-  data: Prisma.XOR<Prisma.AddonUpdateManyMutationInput, Prisma.AddonUncheckedUpdateManyWithoutOrderItemsInput>
-}
-
-export type AddonUpdateWithoutCartItemsInput = {
+export type AddonUpdateWithoutOrderItemAddonsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAddonTypeFieldUpdateOperationsInput | $Enums.AddonType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  orderItems?: Prisma.OrderItemUpdateManyWithoutAddonNestedInput
+  cartItemAddons?: Prisma.CartItemAddonUpdateManyWithoutAddonNestedInput
 }
 
-export type AddonUncheckedUpdateWithoutCartItemsInput = {
+export type AddonUncheckedUpdateWithoutOrderItemAddonsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumAddonTypeFieldUpdateOperationsInput | $Enums.AddonType
   title?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutAddonNestedInput
-}
-
-export type AddonUncheckedUpdateManyWithoutCartItemsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumAddonTypeFieldUpdateOperationsInput | $Enums.AddonType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-}
-
-export type AddonUpdateWithoutOrderItemsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumAddonTypeFieldUpdateOperationsInput | $Enums.AddonType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  cartItems?: Prisma.CartItemUpdateManyWithoutAddonNestedInput
-}
-
-export type AddonUncheckedUpdateWithoutOrderItemsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumAddonTypeFieldUpdateOperationsInput | $Enums.AddonType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  cartItems?: Prisma.CartItemUncheckedUpdateManyWithoutAddonNestedInput
-}
-
-export type AddonUncheckedUpdateManyWithoutOrderItemsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumAddonTypeFieldUpdateOperationsInput | $Enums.AddonType
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  cartItemAddons?: Prisma.CartItemAddonUncheckedUpdateManyWithoutAddonNestedInput
 }
 
 
@@ -567,13 +480,13 @@ export type AddonUncheckedUpdateManyWithoutOrderItemsInput = {
  */
 
 export type AddonCountOutputType = {
-  cartItems: number
-  orderItems: number
+  cartItemAddons: number
+  orderItemAddons: number
 }
 
 export type AddonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  cartItems?: boolean | AddonCountOutputTypeCountCartItemsArgs
-  orderItems?: boolean | AddonCountOutputTypeCountOrderItemsArgs
+  cartItemAddons?: boolean | AddonCountOutputTypeCountCartItemAddonsArgs
+  orderItemAddons?: boolean | AddonCountOutputTypeCountOrderItemAddonsArgs
 }
 
 /**
@@ -589,15 +502,15 @@ export type AddonCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
 /**
  * AddonCountOutputType without action
  */
-export type AddonCountOutputTypeCountCartItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.CartItemWhereInput
+export type AddonCountOutputTypeCountCartItemAddonsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CartItemAddonWhereInput
 }
 
 /**
  * AddonCountOutputType without action
  */
-export type AddonCountOutputTypeCountOrderItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.OrderItemWhereInput
+export type AddonCountOutputTypeCountOrderItemAddonsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderItemAddonWhereInput
 }
 
 
@@ -606,8 +519,8 @@ export type AddonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   type?: boolean
   title?: boolean
   price?: boolean
-  cartItems?: boolean | Prisma.Addon$cartItemsArgs<ExtArgs>
-  orderItems?: boolean | Prisma.Addon$orderItemsArgs<ExtArgs>
+  cartItemAddons?: boolean | Prisma.Addon$cartItemAddonsArgs<ExtArgs>
+  orderItemAddons?: boolean | Prisma.Addon$orderItemAddonsArgs<ExtArgs>
   _count?: boolean | Prisma.AddonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["addon"]>
 
@@ -634,8 +547,8 @@ export type AddonSelectScalar = {
 
 export type AddonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "title" | "price", ExtArgs["result"]["addon"]>
 export type AddonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  cartItems?: boolean | Prisma.Addon$cartItemsArgs<ExtArgs>
-  orderItems?: boolean | Prisma.Addon$orderItemsArgs<ExtArgs>
+  cartItemAddons?: boolean | Prisma.Addon$cartItemAddonsArgs<ExtArgs>
+  orderItemAddons?: boolean | Prisma.Addon$orderItemAddonsArgs<ExtArgs>
   _count?: boolean | Prisma.AddonCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AddonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -644,8 +557,8 @@ export type AddonIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type $AddonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Addon"
   objects: {
-    cartItems: Prisma.$CartItemPayload<ExtArgs>[]
-    orderItems: Prisma.$OrderItemPayload<ExtArgs>[]
+    cartItemAddons: Prisma.$CartItemAddonPayload<ExtArgs>[]
+    orderItemAddons: Prisma.$OrderItemAddonPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1046,8 +959,8 @@ readonly fields: AddonFieldRefs;
  */
 export interface Prisma__AddonClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  cartItems<T extends Prisma.Addon$cartItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Addon$cartItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CartItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  orderItems<T extends Prisma.Addon$orderItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Addon$orderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  cartItemAddons<T extends Prisma.Addon$cartItemAddonsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Addon$cartItemAddonsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CartItemAddonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  orderItemAddons<T extends Prisma.Addon$orderItemAddonsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Addon$orderItemAddonsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderItemAddonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1469,51 +1382,51 @@ export type AddonDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * Addon.cartItems
+ * Addon.cartItemAddons
  */
-export type Addon$cartItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Addon$cartItemAddonsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the CartItem
+   * Select specific fields to fetch from the CartItemAddon
    */
-  select?: Prisma.CartItemSelect<ExtArgs> | null
+  select?: Prisma.CartItemAddonSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the CartItem
+   * Omit specific fields from the CartItemAddon
    */
-  omit?: Prisma.CartItemOmit<ExtArgs> | null
+  omit?: Prisma.CartItemAddonOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.CartItemInclude<ExtArgs> | null
-  where?: Prisma.CartItemWhereInput
-  orderBy?: Prisma.CartItemOrderByWithRelationInput | Prisma.CartItemOrderByWithRelationInput[]
-  cursor?: Prisma.CartItemWhereUniqueInput
+  include?: Prisma.CartItemAddonInclude<ExtArgs> | null
+  where?: Prisma.CartItemAddonWhereInput
+  orderBy?: Prisma.CartItemAddonOrderByWithRelationInput | Prisma.CartItemAddonOrderByWithRelationInput[]
+  cursor?: Prisma.CartItemAddonWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.CartItemScalarFieldEnum | Prisma.CartItemScalarFieldEnum[]
+  distinct?: Prisma.CartItemAddonScalarFieldEnum | Prisma.CartItemAddonScalarFieldEnum[]
 }
 
 /**
- * Addon.orderItems
+ * Addon.orderItemAddons
  */
-export type Addon$orderItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Addon$orderItemAddonsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the OrderItem
+   * Select specific fields to fetch from the OrderItemAddon
    */
-  select?: Prisma.OrderItemSelect<ExtArgs> | null
+  select?: Prisma.OrderItemAddonSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the OrderItem
+   * Omit specific fields from the OrderItemAddon
    */
-  omit?: Prisma.OrderItemOmit<ExtArgs> | null
+  omit?: Prisma.OrderItemAddonOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.OrderItemInclude<ExtArgs> | null
-  where?: Prisma.OrderItemWhereInput
-  orderBy?: Prisma.OrderItemOrderByWithRelationInput | Prisma.OrderItemOrderByWithRelationInput[]
-  cursor?: Prisma.OrderItemWhereUniqueInput
+  include?: Prisma.OrderItemAddonInclude<ExtArgs> | null
+  where?: Prisma.OrderItemAddonWhereInput
+  orderBy?: Prisma.OrderItemAddonOrderByWithRelationInput | Prisma.OrderItemAddonOrderByWithRelationInput[]
+  cursor?: Prisma.OrderItemAddonWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.OrderItemScalarFieldEnum | Prisma.OrderItemScalarFieldEnum[]
+  distinct?: Prisma.OrderItemAddonScalarFieldEnum | Prisma.OrderItemAddonScalarFieldEnum[]
 }
 
 /**

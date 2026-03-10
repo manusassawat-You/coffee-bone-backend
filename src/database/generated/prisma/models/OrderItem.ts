@@ -40,30 +40,24 @@ export type OrderItemMinAggregateOutputType = {
   id: string | null
   orderId: string | null
   menuId: string | null
-  coffeeBeanId: string | null
   quantity: number | null
   price: number | null
-  addonId: string | null
 }
 
 export type OrderItemMaxAggregateOutputType = {
   id: string | null
   orderId: string | null
   menuId: string | null
-  coffeeBeanId: string | null
   quantity: number | null
   price: number | null
-  addonId: string | null
 }
 
 export type OrderItemCountAggregateOutputType = {
   id: number
   orderId: number
   menuId: number
-  coffeeBeanId: number
   quantity: number
   price: number
-  addonId: number
   _all: number
 }
 
@@ -82,30 +76,24 @@ export type OrderItemMinAggregateInputType = {
   id?: true
   orderId?: true
   menuId?: true
-  coffeeBeanId?: true
   quantity?: true
   price?: true
-  addonId?: true
 }
 
 export type OrderItemMaxAggregateInputType = {
   id?: true
   orderId?: true
   menuId?: true
-  coffeeBeanId?: true
   quantity?: true
   price?: true
-  addonId?: true
 }
 
 export type OrderItemCountAggregateInputType = {
   id?: true
   orderId?: true
   menuId?: true
-  coffeeBeanId?: true
   quantity?: true
   price?: true
-  addonId?: true
   _all?: true
 }
 
@@ -199,10 +187,8 @@ export type OrderItemGroupByOutputType = {
   id: string
   orderId: string
   menuId: string
-  coffeeBeanId: string
   quantity: number
   price: number
-  addonId: string | null
   _count: OrderItemCountAggregateOutputType | null
   _avg: OrderItemAvgAggregateOutputType | null
   _sum: OrderItemSumAggregateOutputType | null
@@ -232,26 +218,22 @@ export type OrderItemWhereInput = {
   id?: Prisma.StringFilter<"OrderItem"> | string
   orderId?: Prisma.StringFilter<"OrderItem"> | string
   menuId?: Prisma.StringFilter<"OrderItem"> | string
-  coffeeBeanId?: Prisma.StringFilter<"OrderItem"> | string
   quantity?: Prisma.IntFilter<"OrderItem"> | number
   price?: Prisma.FloatFilter<"OrderItem"> | number
-  addonId?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   order?: Prisma.XOR<Prisma.OrderScalarRelationFilter, Prisma.OrderWhereInput>
   menu?: Prisma.XOR<Prisma.MenuScalarRelationFilter, Prisma.MenuWhereInput>
-  addon?: Prisma.AddonListRelationFilter
+  addons?: Prisma.OrderItemAddonListRelationFilter
 }
 
 export type OrderItemOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   orderId?: Prisma.SortOrder
   menuId?: Prisma.SortOrder
-  coffeeBeanId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  addonId?: Prisma.SortOrderInput | Prisma.SortOrder
   order?: Prisma.OrderOrderByWithRelationInput
   menu?: Prisma.MenuOrderByWithRelationInput
-  addon?: Prisma.AddonOrderByRelationAggregateInput
+  addons?: Prisma.OrderItemAddonOrderByRelationAggregateInput
 }
 
 export type OrderItemWhereUniqueInput = Prisma.AtLeast<{
@@ -261,23 +243,19 @@ export type OrderItemWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.OrderItemWhereInput | Prisma.OrderItemWhereInput[]
   orderId?: Prisma.StringFilter<"OrderItem"> | string
   menuId?: Prisma.StringFilter<"OrderItem"> | string
-  coffeeBeanId?: Prisma.StringFilter<"OrderItem"> | string
   quantity?: Prisma.IntFilter<"OrderItem"> | number
   price?: Prisma.FloatFilter<"OrderItem"> | number
-  addonId?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   order?: Prisma.XOR<Prisma.OrderScalarRelationFilter, Prisma.OrderWhereInput>
   menu?: Prisma.XOR<Prisma.MenuScalarRelationFilter, Prisma.MenuWhereInput>
-  addon?: Prisma.AddonListRelationFilter
+  addons?: Prisma.OrderItemAddonListRelationFilter
 }, "id">
 
 export type OrderItemOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   orderId?: Prisma.SortOrder
   menuId?: Prisma.SortOrder
-  coffeeBeanId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  addonId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.OrderItemCountOrderByAggregateInput
   _avg?: Prisma.OrderItemAvgOrderByAggregateInput
   _max?: Prisma.OrderItemMaxOrderByAggregateInput
@@ -292,82 +270,66 @@ export type OrderItemScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"OrderItem"> | string
   orderId?: Prisma.StringWithAggregatesFilter<"OrderItem"> | string
   menuId?: Prisma.StringWithAggregatesFilter<"OrderItem"> | string
-  coffeeBeanId?: Prisma.StringWithAggregatesFilter<"OrderItem"> | string
   quantity?: Prisma.IntWithAggregatesFilter<"OrderItem"> | number
   price?: Prisma.FloatWithAggregatesFilter<"OrderItem"> | number
-  addonId?: Prisma.StringNullableWithAggregatesFilter<"OrderItem"> | string | null
 }
 
 export type OrderItemCreateInput = {
   id?: string
-  coffeeBeanId: string
   quantity: number
   price: number
-  addonId?: string | null
   order: Prisma.OrderCreateNestedOneWithoutOrderItemsInput
   menu: Prisma.MenuCreateNestedOneWithoutOrderItemsInput
-  addon?: Prisma.AddonCreateNestedManyWithoutOrderItemsInput
+  addons?: Prisma.OrderItemAddonCreateNestedManyWithoutOrderItemInput
 }
 
 export type OrderItemUncheckedCreateInput = {
   id?: string
   orderId: string
   menuId: string
-  coffeeBeanId: string
   quantity: number
   price: number
-  addonId?: string | null
-  addon?: Prisma.AddonUncheckedCreateNestedManyWithoutOrderItemsInput
+  addons?: Prisma.OrderItemAddonUncheckedCreateNestedManyWithoutOrderItemInput
 }
 
 export type OrderItemUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  coffeeBeanId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  addonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.OrderUpdateOneRequiredWithoutOrderItemsNestedInput
   menu?: Prisma.MenuUpdateOneRequiredWithoutOrderItemsNestedInput
-  addon?: Prisma.AddonUpdateManyWithoutOrderItemsNestedInput
+  addons?: Prisma.OrderItemAddonUpdateManyWithoutOrderItemNestedInput
 }
 
 export type OrderItemUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   orderId?: Prisma.StringFieldUpdateOperationsInput | string
   menuId?: Prisma.StringFieldUpdateOperationsInput | string
-  coffeeBeanId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  addonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  addon?: Prisma.AddonUncheckedUpdateManyWithoutOrderItemsNestedInput
+  addons?: Prisma.OrderItemAddonUncheckedUpdateManyWithoutOrderItemNestedInput
 }
 
 export type OrderItemCreateManyInput = {
   id?: string
   orderId: string
   menuId: string
-  coffeeBeanId: string
   quantity: number
   price: number
-  addonId?: string | null
 }
 
 export type OrderItemUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  coffeeBeanId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  addonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OrderItemUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   orderId?: Prisma.StringFieldUpdateOperationsInput | string
   menuId?: Prisma.StringFieldUpdateOperationsInput | string
-  coffeeBeanId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  addonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OrderItemListRelationFilter = {
@@ -384,10 +346,8 @@ export type OrderItemCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   orderId?: Prisma.SortOrder
   menuId?: Prisma.SortOrder
-  coffeeBeanId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  addonId?: Prisma.SortOrder
 }
 
 export type OrderItemAvgOrderByAggregateInput = {
@@ -399,25 +359,26 @@ export type OrderItemMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   orderId?: Prisma.SortOrder
   menuId?: Prisma.SortOrder
-  coffeeBeanId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  addonId?: Prisma.SortOrder
 }
 
 export type OrderItemMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   orderId?: Prisma.SortOrder
   menuId?: Prisma.SortOrder
-  coffeeBeanId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  addonId?: Prisma.SortOrder
 }
 
 export type OrderItemSumOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
   price?: Prisma.SortOrder
+}
+
+export type OrderItemScalarRelationFilter = {
+  is?: Prisma.OrderItemWhereInput
+  isNot?: Prisma.OrderItemWhereInput
 }
 
 export type OrderItemCreateNestedManyWithoutMenuInput = {
@@ -459,44 +420,6 @@ export type OrderItemUncheckedUpdateManyWithoutMenuNestedInput = {
   connect?: Prisma.OrderItemWhereUniqueInput | Prisma.OrderItemWhereUniqueInput[]
   update?: Prisma.OrderItemUpdateWithWhereUniqueWithoutMenuInput | Prisma.OrderItemUpdateWithWhereUniqueWithoutMenuInput[]
   updateMany?: Prisma.OrderItemUpdateManyWithWhereWithoutMenuInput | Prisma.OrderItemUpdateManyWithWhereWithoutMenuInput[]
-  deleteMany?: Prisma.OrderItemScalarWhereInput | Prisma.OrderItemScalarWhereInput[]
-}
-
-export type OrderItemCreateNestedManyWithoutAddonInput = {
-  create?: Prisma.XOR<Prisma.OrderItemCreateWithoutAddonInput, Prisma.OrderItemUncheckedCreateWithoutAddonInput> | Prisma.OrderItemCreateWithoutAddonInput[] | Prisma.OrderItemUncheckedCreateWithoutAddonInput[]
-  connectOrCreate?: Prisma.OrderItemCreateOrConnectWithoutAddonInput | Prisma.OrderItemCreateOrConnectWithoutAddonInput[]
-  connect?: Prisma.OrderItemWhereUniqueInput | Prisma.OrderItemWhereUniqueInput[]
-}
-
-export type OrderItemUncheckedCreateNestedManyWithoutAddonInput = {
-  create?: Prisma.XOR<Prisma.OrderItemCreateWithoutAddonInput, Prisma.OrderItemUncheckedCreateWithoutAddonInput> | Prisma.OrderItemCreateWithoutAddonInput[] | Prisma.OrderItemUncheckedCreateWithoutAddonInput[]
-  connectOrCreate?: Prisma.OrderItemCreateOrConnectWithoutAddonInput | Prisma.OrderItemCreateOrConnectWithoutAddonInput[]
-  connect?: Prisma.OrderItemWhereUniqueInput | Prisma.OrderItemWhereUniqueInput[]
-}
-
-export type OrderItemUpdateManyWithoutAddonNestedInput = {
-  create?: Prisma.XOR<Prisma.OrderItemCreateWithoutAddonInput, Prisma.OrderItemUncheckedCreateWithoutAddonInput> | Prisma.OrderItemCreateWithoutAddonInput[] | Prisma.OrderItemUncheckedCreateWithoutAddonInput[]
-  connectOrCreate?: Prisma.OrderItemCreateOrConnectWithoutAddonInput | Prisma.OrderItemCreateOrConnectWithoutAddonInput[]
-  upsert?: Prisma.OrderItemUpsertWithWhereUniqueWithoutAddonInput | Prisma.OrderItemUpsertWithWhereUniqueWithoutAddonInput[]
-  set?: Prisma.OrderItemWhereUniqueInput | Prisma.OrderItemWhereUniqueInput[]
-  disconnect?: Prisma.OrderItemWhereUniqueInput | Prisma.OrderItemWhereUniqueInput[]
-  delete?: Prisma.OrderItemWhereUniqueInput | Prisma.OrderItemWhereUniqueInput[]
-  connect?: Prisma.OrderItemWhereUniqueInput | Prisma.OrderItemWhereUniqueInput[]
-  update?: Prisma.OrderItemUpdateWithWhereUniqueWithoutAddonInput | Prisma.OrderItemUpdateWithWhereUniqueWithoutAddonInput[]
-  updateMany?: Prisma.OrderItemUpdateManyWithWhereWithoutAddonInput | Prisma.OrderItemUpdateManyWithWhereWithoutAddonInput[]
-  deleteMany?: Prisma.OrderItemScalarWhereInput | Prisma.OrderItemScalarWhereInput[]
-}
-
-export type OrderItemUncheckedUpdateManyWithoutAddonNestedInput = {
-  create?: Prisma.XOR<Prisma.OrderItemCreateWithoutAddonInput, Prisma.OrderItemUncheckedCreateWithoutAddonInput> | Prisma.OrderItemCreateWithoutAddonInput[] | Prisma.OrderItemUncheckedCreateWithoutAddonInput[]
-  connectOrCreate?: Prisma.OrderItemCreateOrConnectWithoutAddonInput | Prisma.OrderItemCreateOrConnectWithoutAddonInput[]
-  upsert?: Prisma.OrderItemUpsertWithWhereUniqueWithoutAddonInput | Prisma.OrderItemUpsertWithWhereUniqueWithoutAddonInput[]
-  set?: Prisma.OrderItemWhereUniqueInput | Prisma.OrderItemWhereUniqueInput[]
-  disconnect?: Prisma.OrderItemWhereUniqueInput | Prisma.OrderItemWhereUniqueInput[]
-  delete?: Prisma.OrderItemWhereUniqueInput | Prisma.OrderItemWhereUniqueInput[]
-  connect?: Prisma.OrderItemWhereUniqueInput | Prisma.OrderItemWhereUniqueInput[]
-  update?: Prisma.OrderItemUpdateWithWhereUniqueWithoutAddonInput | Prisma.OrderItemUpdateWithWhereUniqueWithoutAddonInput[]
-  updateMany?: Prisma.OrderItemUpdateManyWithWhereWithoutAddonInput | Prisma.OrderItemUpdateManyWithWhereWithoutAddonInput[]
   deleteMany?: Prisma.OrderItemScalarWhereInput | Prisma.OrderItemScalarWhereInput[]
 }
 
@@ -542,24 +465,34 @@ export type OrderItemUncheckedUpdateManyWithoutOrderNestedInput = {
   deleteMany?: Prisma.OrderItemScalarWhereInput | Prisma.OrderItemScalarWhereInput[]
 }
 
+export type OrderItemCreateNestedOneWithoutAddonsInput = {
+  create?: Prisma.XOR<Prisma.OrderItemCreateWithoutAddonsInput, Prisma.OrderItemUncheckedCreateWithoutAddonsInput>
+  connectOrCreate?: Prisma.OrderItemCreateOrConnectWithoutAddonsInput
+  connect?: Prisma.OrderItemWhereUniqueInput
+}
+
+export type OrderItemUpdateOneRequiredWithoutAddonsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderItemCreateWithoutAddonsInput, Prisma.OrderItemUncheckedCreateWithoutAddonsInput>
+  connectOrCreate?: Prisma.OrderItemCreateOrConnectWithoutAddonsInput
+  upsert?: Prisma.OrderItemUpsertWithoutAddonsInput
+  connect?: Prisma.OrderItemWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrderItemUpdateToOneWithWhereWithoutAddonsInput, Prisma.OrderItemUpdateWithoutAddonsInput>, Prisma.OrderItemUncheckedUpdateWithoutAddonsInput>
+}
+
 export type OrderItemCreateWithoutMenuInput = {
   id?: string
-  coffeeBeanId: string
   quantity: number
   price: number
-  addonId?: string | null
   order: Prisma.OrderCreateNestedOneWithoutOrderItemsInput
-  addon?: Prisma.AddonCreateNestedManyWithoutOrderItemsInput
+  addons?: Prisma.OrderItemAddonCreateNestedManyWithoutOrderItemInput
 }
 
 export type OrderItemUncheckedCreateWithoutMenuInput = {
   id?: string
   orderId: string
-  coffeeBeanId: string
   quantity: number
   price: number
-  addonId?: string | null
-  addon?: Prisma.AddonUncheckedCreateNestedManyWithoutOrderItemsInput
+  addons?: Prisma.OrderItemAddonUncheckedCreateNestedManyWithoutOrderItemInput
 }
 
 export type OrderItemCreateOrConnectWithoutMenuInput = {
@@ -595,71 +528,24 @@ export type OrderItemScalarWhereInput = {
   id?: Prisma.StringFilter<"OrderItem"> | string
   orderId?: Prisma.StringFilter<"OrderItem"> | string
   menuId?: Prisma.StringFilter<"OrderItem"> | string
-  coffeeBeanId?: Prisma.StringFilter<"OrderItem"> | string
   quantity?: Prisma.IntFilter<"OrderItem"> | number
   price?: Prisma.FloatFilter<"OrderItem"> | number
-  addonId?: Prisma.StringNullableFilter<"OrderItem"> | string | null
-}
-
-export type OrderItemCreateWithoutAddonInput = {
-  id?: string
-  coffeeBeanId: string
-  quantity: number
-  price: number
-  addonId?: string | null
-  order: Prisma.OrderCreateNestedOneWithoutOrderItemsInput
-  menu: Prisma.MenuCreateNestedOneWithoutOrderItemsInput
-}
-
-export type OrderItemUncheckedCreateWithoutAddonInput = {
-  id?: string
-  orderId: string
-  menuId: string
-  coffeeBeanId: string
-  quantity: number
-  price: number
-  addonId?: string | null
-}
-
-export type OrderItemCreateOrConnectWithoutAddonInput = {
-  where: Prisma.OrderItemWhereUniqueInput
-  create: Prisma.XOR<Prisma.OrderItemCreateWithoutAddonInput, Prisma.OrderItemUncheckedCreateWithoutAddonInput>
-}
-
-export type OrderItemUpsertWithWhereUniqueWithoutAddonInput = {
-  where: Prisma.OrderItemWhereUniqueInput
-  update: Prisma.XOR<Prisma.OrderItemUpdateWithoutAddonInput, Prisma.OrderItemUncheckedUpdateWithoutAddonInput>
-  create: Prisma.XOR<Prisma.OrderItemCreateWithoutAddonInput, Prisma.OrderItemUncheckedCreateWithoutAddonInput>
-}
-
-export type OrderItemUpdateWithWhereUniqueWithoutAddonInput = {
-  where: Prisma.OrderItemWhereUniqueInput
-  data: Prisma.XOR<Prisma.OrderItemUpdateWithoutAddonInput, Prisma.OrderItemUncheckedUpdateWithoutAddonInput>
-}
-
-export type OrderItemUpdateManyWithWhereWithoutAddonInput = {
-  where: Prisma.OrderItemScalarWhereInput
-  data: Prisma.XOR<Prisma.OrderItemUpdateManyMutationInput, Prisma.OrderItemUncheckedUpdateManyWithoutAddonInput>
 }
 
 export type OrderItemCreateWithoutOrderInput = {
   id?: string
-  coffeeBeanId: string
   quantity: number
   price: number
-  addonId?: string | null
   menu: Prisma.MenuCreateNestedOneWithoutOrderItemsInput
-  addon?: Prisma.AddonCreateNestedManyWithoutOrderItemsInput
+  addons?: Prisma.OrderItemAddonCreateNestedManyWithoutOrderItemInput
 }
 
 export type OrderItemUncheckedCreateWithoutOrderInput = {
   id?: string
   menuId: string
-  coffeeBeanId: string
   quantity: number
   price: number
-  addonId?: string | null
-  addon?: Prisma.AddonUncheckedCreateNestedManyWithoutOrderItemsInput
+  addons?: Prisma.OrderItemAddonUncheckedCreateNestedManyWithoutOrderItemInput
 }
 
 export type OrderItemCreateOrConnectWithoutOrderInput = {
@@ -688,110 +574,112 @@ export type OrderItemUpdateManyWithWhereWithoutOrderInput = {
   data: Prisma.XOR<Prisma.OrderItemUpdateManyMutationInput, Prisma.OrderItemUncheckedUpdateManyWithoutOrderInput>
 }
 
+export type OrderItemCreateWithoutAddonsInput = {
+  id?: string
+  quantity: number
+  price: number
+  order: Prisma.OrderCreateNestedOneWithoutOrderItemsInput
+  menu: Prisma.MenuCreateNestedOneWithoutOrderItemsInput
+}
+
+export type OrderItemUncheckedCreateWithoutAddonsInput = {
+  id?: string
+  orderId: string
+  menuId: string
+  quantity: number
+  price: number
+}
+
+export type OrderItemCreateOrConnectWithoutAddonsInput = {
+  where: Prisma.OrderItemWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderItemCreateWithoutAddonsInput, Prisma.OrderItemUncheckedCreateWithoutAddonsInput>
+}
+
+export type OrderItemUpsertWithoutAddonsInput = {
+  update: Prisma.XOR<Prisma.OrderItemUpdateWithoutAddonsInput, Prisma.OrderItemUncheckedUpdateWithoutAddonsInput>
+  create: Prisma.XOR<Prisma.OrderItemCreateWithoutAddonsInput, Prisma.OrderItemUncheckedCreateWithoutAddonsInput>
+  where?: Prisma.OrderItemWhereInput
+}
+
+export type OrderItemUpdateToOneWithWhereWithoutAddonsInput = {
+  where?: Prisma.OrderItemWhereInput
+  data: Prisma.XOR<Prisma.OrderItemUpdateWithoutAddonsInput, Prisma.OrderItemUncheckedUpdateWithoutAddonsInput>
+}
+
+export type OrderItemUpdateWithoutAddonsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  order?: Prisma.OrderUpdateOneRequiredWithoutOrderItemsNestedInput
+  menu?: Prisma.MenuUpdateOneRequiredWithoutOrderItemsNestedInput
+}
+
+export type OrderItemUncheckedUpdateWithoutAddonsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderId?: Prisma.StringFieldUpdateOperationsInput | string
+  menuId?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+}
+
 export type OrderItemCreateManyMenuInput = {
   id?: string
   orderId: string
-  coffeeBeanId: string
   quantity: number
   price: number
-  addonId?: string | null
 }
 
 export type OrderItemUpdateWithoutMenuInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  coffeeBeanId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  addonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.OrderUpdateOneRequiredWithoutOrderItemsNestedInput
-  addon?: Prisma.AddonUpdateManyWithoutOrderItemsNestedInput
+  addons?: Prisma.OrderItemAddonUpdateManyWithoutOrderItemNestedInput
 }
 
 export type OrderItemUncheckedUpdateWithoutMenuInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   orderId?: Prisma.StringFieldUpdateOperationsInput | string
-  coffeeBeanId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  addonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  addon?: Prisma.AddonUncheckedUpdateManyWithoutOrderItemsNestedInput
+  addons?: Prisma.OrderItemAddonUncheckedUpdateManyWithoutOrderItemNestedInput
 }
 
 export type OrderItemUncheckedUpdateManyWithoutMenuInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   orderId?: Prisma.StringFieldUpdateOperationsInput | string
-  coffeeBeanId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  addonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type OrderItemUpdateWithoutAddonInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  coffeeBeanId?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  addonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  order?: Prisma.OrderUpdateOneRequiredWithoutOrderItemsNestedInput
-  menu?: Prisma.MenuUpdateOneRequiredWithoutOrderItemsNestedInput
-}
-
-export type OrderItemUncheckedUpdateWithoutAddonInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.StringFieldUpdateOperationsInput | string
-  menuId?: Prisma.StringFieldUpdateOperationsInput | string
-  coffeeBeanId?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  addonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type OrderItemUncheckedUpdateManyWithoutAddonInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.StringFieldUpdateOperationsInput | string
-  menuId?: Prisma.StringFieldUpdateOperationsInput | string
-  coffeeBeanId?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  addonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OrderItemCreateManyOrderInput = {
   id?: string
   menuId: string
-  coffeeBeanId: string
   quantity: number
   price: number
-  addonId?: string | null
 }
 
 export type OrderItemUpdateWithoutOrderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  coffeeBeanId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  addonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   menu?: Prisma.MenuUpdateOneRequiredWithoutOrderItemsNestedInput
-  addon?: Prisma.AddonUpdateManyWithoutOrderItemsNestedInput
+  addons?: Prisma.OrderItemAddonUpdateManyWithoutOrderItemNestedInput
 }
 
 export type OrderItemUncheckedUpdateWithoutOrderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   menuId?: Prisma.StringFieldUpdateOperationsInput | string
-  coffeeBeanId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  addonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  addon?: Prisma.AddonUncheckedUpdateManyWithoutOrderItemsNestedInput
+  addons?: Prisma.OrderItemAddonUncheckedUpdateManyWithoutOrderItemNestedInput
 }
 
 export type OrderItemUncheckedUpdateManyWithoutOrderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   menuId?: Prisma.StringFieldUpdateOperationsInput | string
-  coffeeBeanId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   price?: Prisma.FloatFieldUpdateOperationsInput | number
-  addonId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -800,11 +688,11 @@ export type OrderItemUncheckedUpdateManyWithoutOrderInput = {
  */
 
 export type OrderItemCountOutputType = {
-  addon: number
+  addons: number
 }
 
 export type OrderItemCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  addon?: boolean | OrderItemCountOutputTypeCountAddonArgs
+  addons?: boolean | OrderItemCountOutputTypeCountAddonsArgs
 }
 
 /**
@@ -820,8 +708,8 @@ export type OrderItemCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ex
 /**
  * OrderItemCountOutputType without action
  */
-export type OrderItemCountOutputTypeCountAddonArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AddonWhereInput
+export type OrderItemCountOutputTypeCountAddonsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderItemAddonWhereInput
 }
 
 
@@ -829,13 +717,11 @@ export type OrderItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   id?: boolean
   orderId?: boolean
   menuId?: boolean
-  coffeeBeanId?: boolean
   quantity?: boolean
   price?: boolean
-  addonId?: boolean
   order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
   menu?: boolean | Prisma.MenuDefaultArgs<ExtArgs>
-  addon?: boolean | Prisma.OrderItem$addonArgs<ExtArgs>
+  addons?: boolean | Prisma.OrderItem$addonsArgs<ExtArgs>
   _count?: boolean | Prisma.OrderItemCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["orderItem"]>
 
@@ -843,10 +729,8 @@ export type OrderItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   id?: boolean
   orderId?: boolean
   menuId?: boolean
-  coffeeBeanId?: boolean
   quantity?: boolean
   price?: boolean
-  addonId?: boolean
   order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
   menu?: boolean | Prisma.MenuDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["orderItem"]>
@@ -855,10 +739,8 @@ export type OrderItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   id?: boolean
   orderId?: boolean
   menuId?: boolean
-  coffeeBeanId?: boolean
   quantity?: boolean
   price?: boolean
-  addonId?: boolean
   order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
   menu?: boolean | Prisma.MenuDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["orderItem"]>
@@ -867,17 +749,15 @@ export type OrderItemSelectScalar = {
   id?: boolean
   orderId?: boolean
   menuId?: boolean
-  coffeeBeanId?: boolean
   quantity?: boolean
   price?: boolean
-  addonId?: boolean
 }
 
-export type OrderItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderId" | "menuId" | "coffeeBeanId" | "quantity" | "price" | "addonId", ExtArgs["result"]["orderItem"]>
+export type OrderItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderId" | "menuId" | "quantity" | "price", ExtArgs["result"]["orderItem"]>
 export type OrderItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
   menu?: boolean | Prisma.MenuDefaultArgs<ExtArgs>
-  addon?: boolean | Prisma.OrderItem$addonArgs<ExtArgs>
+  addons?: boolean | Prisma.OrderItem$addonsArgs<ExtArgs>
   _count?: boolean | Prisma.OrderItemCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrderItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -894,16 +774,14 @@ export type $OrderItemPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   objects: {
     order: Prisma.$OrderPayload<ExtArgs>
     menu: Prisma.$MenuPayload<ExtArgs>
-    addon: Prisma.$AddonPayload<ExtArgs>[]
+    addons: Prisma.$OrderItemAddonPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     orderId: string
     menuId: string
-    coffeeBeanId: string
     quantity: number
     price: number
-    addonId: string | null
   }, ExtArgs["result"]["orderItem"]>
   composites: {}
 }
@@ -1300,7 +1178,7 @@ export interface Prisma__OrderItemClient<T, Null = never, ExtArgs extends runtim
   readonly [Symbol.toStringTag]: "PrismaPromise"
   order<T extends Prisma.OrderDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderDefaultArgs<ExtArgs>>): Prisma.Prisma__OrderClient<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   menu<T extends Prisma.MenuDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MenuDefaultArgs<ExtArgs>>): Prisma.Prisma__MenuClient<runtime.Types.Result.GetResult<Prisma.$MenuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  addon<T extends Prisma.OrderItem$addonArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderItem$addonArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AddonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  addons<T extends Prisma.OrderItem$addonsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderItem$addonsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderItemAddonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1333,10 +1211,8 @@ export interface OrderItemFieldRefs {
   readonly id: Prisma.FieldRef<"OrderItem", 'String'>
   readonly orderId: Prisma.FieldRef<"OrderItem", 'String'>
   readonly menuId: Prisma.FieldRef<"OrderItem", 'String'>
-  readonly coffeeBeanId: Prisma.FieldRef<"OrderItem", 'String'>
   readonly quantity: Prisma.FieldRef<"OrderItem", 'Int'>
   readonly price: Prisma.FieldRef<"OrderItem", 'Float'>
-  readonly addonId: Prisma.FieldRef<"OrderItem", 'String'>
 }
     
 
@@ -1733,27 +1609,27 @@ export type OrderItemDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
- * OrderItem.addon
+ * OrderItem.addons
  */
-export type OrderItem$addonArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type OrderItem$addonsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Addon
+   * Select specific fields to fetch from the OrderItemAddon
    */
-  select?: Prisma.AddonSelect<ExtArgs> | null
+  select?: Prisma.OrderItemAddonSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Addon
+   * Omit specific fields from the OrderItemAddon
    */
-  omit?: Prisma.AddonOmit<ExtArgs> | null
+  omit?: Prisma.OrderItemAddonOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.AddonInclude<ExtArgs> | null
-  where?: Prisma.AddonWhereInput
-  orderBy?: Prisma.AddonOrderByWithRelationInput | Prisma.AddonOrderByWithRelationInput[]
-  cursor?: Prisma.AddonWhereUniqueInput
+  include?: Prisma.OrderItemAddonInclude<ExtArgs> | null
+  where?: Prisma.OrderItemAddonWhereInput
+  orderBy?: Prisma.OrderItemAddonOrderByWithRelationInput | Prisma.OrderItemAddonOrderByWithRelationInput[]
+  cursor?: Prisma.OrderItemAddonWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.AddonScalarFieldEnum | Prisma.AddonScalarFieldEnum[]
+  distinct?: Prisma.OrderItemAddonScalarFieldEnum | Prisma.OrderItemAddonScalarFieldEnum[]
 }
 
 /**

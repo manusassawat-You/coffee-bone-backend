@@ -25,3 +25,23 @@ export const AddonType = {
 } as const
 
 export type AddonType = (typeof AddonType)[keyof typeof AddonType]
+
+
+export const OrderStatus = {
+  PENDING: 'PENDING',
+  PREPARING: 'PREPARING',
+  READY: 'READY',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
+
+
+export const PaymentStatus = {
+  UNPAID: 'UNPAID',
+  PAID: 'PAID',
+  FAILED: 'FAILED'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]

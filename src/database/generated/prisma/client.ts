@@ -55,6 +55,11 @@ export type Cart = Prisma.CartModel
  */
 export type CartItem = Prisma.CartItemModel
 /**
+ * Model CartItemAddon
+ * 
+ */
+export type CartItemAddon = Prisma.CartItemAddonModel
+/**
  * Model Menu
  * 
  */
@@ -74,3 +79,8 @@ export type Order = Prisma.OrderModel
  * 
  */
 export type OrderItem = Prisma.OrderItemModel
+/**
+ * Model OrderItemAddon
+ * 
+ */
+export type OrderItemAddon = Prisma.OrderItemAddonModel

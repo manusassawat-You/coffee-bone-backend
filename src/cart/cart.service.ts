@@ -13,20 +13,28 @@ export class CartService {
 
     if (!cart) {
       cart = await this.prisma.cart.create({
-        data: {
-          userId,
-        },
+        data: { userId },
       });
     }
 
-    return this.prisma.cartItem.create({
+    const cartItem = await this.prisma.cartItem.create({
       data: {
         cartId: cart.id,
         menuId: data.menuId,
-        coffeeBeanId: data.coffeeBeanId,
         quantity: data.quantity,
       },
     });
+
+    if (data.addons?.length) {
+      await this.prisma.cartItemAddon.createMany({
+        data: data.addons.map((addonId) => ({
+          cartItemId: cartItem.id,
+          addonId,
+        })),
+      });
+    }
+
+    return cartItem;
   }
 
   async getCart(userId: string) {
@@ -36,22 +44,55 @@ export class CartService {
         cartItems: {
           include: {
             menu: true,
+            addons: {
+              include: {
+                addon: true,
+              },
+            },
           },
         },
       },
     });
 
-    if (!cart) return null;
+    if (!cart) {
+      return {
+        cartId: null,
+        items: [],
+        totalPrice: 0,
+      };
+    }
 
-    const items = cart.cartItems.map((item) => ({
-      id: item.id,
-      menu: item.menu.menuName,
-      price: item.menu.price,
-      quantity: item.quantity,
-      total: item.menu.price * item.quantity,
-    }));
+    /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+    /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+    /* eslint-disable @typescript-eslint/no-unsafe-return */
+    /* eslint-disable @typescript-eslint/no-unsafe-call */
 
-    const totalPrice = items.reduce((sum, item) => sum + item.total, 0);
+    const items = cart.cartItems.map((item: any) => {
+      const addonPrice = item.addons.reduce(
+        (sum: number, a: any) => sum + a.addon.price,
+        0,
+      );
+
+      const price = item.menu.price + addonPrice;
+
+      return {
+        id: item.id,
+        menu: item.menu.menuName,
+        quantity: item.quantity,
+        addons: item.addons.map((a: any) => ({
+          id: a.addon.id,
+          title: a.addon.title,
+          price: a.addon.price,
+        })),
+        price,
+        total: price * item.quantity,
+      };
+    });
+
+    const totalPrice = items.reduce(
+      (sum: number, item: any) => sum + item.total,
+      0,
+    );
 
     return {
       cartId: cart.id,
@@ -61,21 +102,23 @@ export class CartService {
   }
 
   async removeCartItem(cartItemId: string) {
+    await this.prisma.cartItemAddon.deleteMany({
+      where: { cartItemId },
+    });
+
     return this.prisma.cartItem.delete({
-      where: {
-        id: cartItemId,
-      },
+      where: { id: cartItemId },
     });
   }
 
   async updateQuantity(cartItemId: string, quantity: number) {
+    if (quantity <= 0) {
+      throw new Error('Quantity must be greater than 0');
+    }
+
     return this.prisma.cartItem.update({
-      where: {
-        id: cartItemId,
-      },
-      data: {
-        quantity,
-      },
+      where: { id: cartItemId },
+      data: { quantity },
     });
   }
 }

@@ -16,7 +16,7 @@ export class MenuController {
   getMenus() {
     return this.menuService.getMenus();
   }
-  @Public()
+
   @UseGuards(AuthGuard, RoleGuard)
   @Roles(Role.ADMIN)
   @Post()
