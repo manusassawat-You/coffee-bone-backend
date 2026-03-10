@@ -309,7 +309,7 @@ export type MenuCreateInput = {
   description?: string | null
   price: number
   image?: string | null
-  isAvailable: boolean
+  isAvailable?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   cartItems?: Prisma.CartItemCreateNestedManyWithoutMenuInput
@@ -322,7 +322,7 @@ export type MenuUncheckedCreateInput = {
   description?: string | null
   price: number
   image?: string | null
-  isAvailable: boolean
+  isAvailable?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutMenuInput
@@ -361,7 +361,7 @@ export type MenuCreateManyInput = {
   description?: string | null
   price: number
   image?: string | null
-  isAvailable: boolean
+  isAvailable?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -480,7 +480,7 @@ export type MenuCreateWithoutCartItemsInput = {
   description?: string | null
   price: number
   image?: string | null
-  isAvailable: boolean
+  isAvailable?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItems?: Prisma.OrderItemCreateNestedManyWithoutMenuInput
@@ -492,7 +492,7 @@ export type MenuUncheckedCreateWithoutCartItemsInput = {
   description?: string | null
   price: number
   image?: string | null
-  isAvailable: boolean
+  isAvailable?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutMenuInput
@@ -544,7 +544,7 @@ export type MenuCreateWithoutOrderItemsInput = {
   description?: string | null
   price: number
   image?: string | null
-  isAvailable: boolean
+  isAvailable?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   cartItems?: Prisma.CartItemCreateNestedManyWithoutMenuInput
@@ -556,7 +556,7 @@ export type MenuUncheckedCreateWithoutOrderItemsInput = {
   description?: string | null
   price: number
   image?: string | null
-  isAvailable: boolean
+  isAvailable?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutMenuInput

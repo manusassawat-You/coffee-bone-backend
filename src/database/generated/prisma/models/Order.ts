@@ -230,7 +230,7 @@ export type OrderGroupByOutputType = {
   method: string
   amount: number
   paymentStatus: string
-  paymentsId: string
+  paymentsId: string | null
   _count: OrderCountAggregateOutputType | null
   _avg: OrderAvgAggregateOutputType | null
   _sum: OrderSumAggregateOutputType | null
@@ -267,7 +267,7 @@ export type OrderWhereInput = {
   method?: Prisma.StringFilter<"Order"> | string
   amount?: Prisma.FloatFilter<"Order"> | number
   paymentStatus?: Prisma.StringFilter<"Order"> | string
-  paymentsId?: Prisma.StringFilter<"Order"> | string
+  paymentsId?: Prisma.StringNullableFilter<"Order"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   orderItems?: Prisma.OrderItemListRelationFilter
 }
@@ -283,7 +283,7 @@ export type OrderOrderByWithRelationInput = {
   method?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
-  paymentsId?: Prisma.SortOrder
+  paymentsId?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   orderItems?: Prisma.OrderItemOrderByRelationAggregateInput
 }
@@ -302,7 +302,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   method?: Prisma.StringFilter<"Order"> | string
   amount?: Prisma.FloatFilter<"Order"> | number
   paymentStatus?: Prisma.StringFilter<"Order"> | string
-  paymentsId?: Prisma.StringFilter<"Order"> | string
+  paymentsId?: Prisma.StringNullableFilter<"Order"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   orderItems?: Prisma.OrderItemListRelationFilter
 }, "id">
@@ -318,7 +318,7 @@ export type OrderOrderByWithAggregationInput = {
   method?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
-  paymentsId?: Prisma.SortOrder
+  paymentsId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.OrderCountOrderByAggregateInput
   _avg?: Prisma.OrderAvgOrderByAggregateInput
   _max?: Prisma.OrderMaxOrderByAggregateInput
@@ -340,7 +340,7 @@ export type OrderScalarWhereWithAggregatesInput = {
   method?: Prisma.StringWithAggregatesFilter<"Order"> | string
   amount?: Prisma.FloatWithAggregatesFilter<"Order"> | number
   paymentStatus?: Prisma.StringWithAggregatesFilter<"Order"> | string
-  paymentsId?: Prisma.StringWithAggregatesFilter<"Order"> | string
+  paymentsId?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
 }
 
 export type OrderCreateInput = {
@@ -353,7 +353,7 @@ export type OrderCreateInput = {
   method: string
   amount: number
   paymentStatus: string
-  paymentsId: string
+  paymentsId?: string | null
   user: Prisma.UserCreateNestedOneWithoutOrdersInput
   orderItems?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
 }
@@ -369,7 +369,7 @@ export type OrderUncheckedCreateInput = {
   method: string
   amount: number
   paymentStatus: string
-  paymentsId: string
+  paymentsId?: string | null
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
 }
 
@@ -383,7 +383,7 @@ export type OrderUpdateInput = {
   method?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  paymentsId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
   orderItems?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
 }
@@ -399,7 +399,7 @@ export type OrderUncheckedUpdateInput = {
   method?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  paymentsId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
 }
 
@@ -414,7 +414,7 @@ export type OrderCreateManyInput = {
   method: string
   amount: number
   paymentStatus: string
-  paymentsId: string
+  paymentsId?: string | null
 }
 
 export type OrderUpdateManyMutationInput = {
@@ -427,7 +427,7 @@ export type OrderUpdateManyMutationInput = {
   method?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  paymentsId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OrderUncheckedUpdateManyInput = {
@@ -441,7 +441,7 @@ export type OrderUncheckedUpdateManyInput = {
   method?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  paymentsId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OrderListRelationFilter = {
@@ -577,7 +577,7 @@ export type OrderCreateWithoutUserInput = {
   method: string
   amount: number
   paymentStatus: string
-  paymentsId: string
+  paymentsId?: string | null
   orderItems?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
 }
 
@@ -591,7 +591,7 @@ export type OrderUncheckedCreateWithoutUserInput = {
   method: string
   amount: number
   paymentStatus: string
-  paymentsId: string
+  paymentsId?: string | null
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
 }
 
@@ -635,7 +635,7 @@ export type OrderScalarWhereInput = {
   method?: Prisma.StringFilter<"Order"> | string
   amount?: Prisma.FloatFilter<"Order"> | number
   paymentStatus?: Prisma.StringFilter<"Order"> | string
-  paymentsId?: Prisma.StringFilter<"Order"> | string
+  paymentsId?: Prisma.StringNullableFilter<"Order"> | string | null
 }
 
 export type OrderCreateWithoutOrderItemsInput = {
@@ -648,7 +648,7 @@ export type OrderCreateWithoutOrderItemsInput = {
   method: string
   amount: number
   paymentStatus: string
-  paymentsId: string
+  paymentsId?: string | null
   user: Prisma.UserCreateNestedOneWithoutOrdersInput
 }
 
@@ -663,7 +663,7 @@ export type OrderUncheckedCreateWithoutOrderItemsInput = {
   method: string
   amount: number
   paymentStatus: string
-  paymentsId: string
+  paymentsId?: string | null
 }
 
 export type OrderCreateOrConnectWithoutOrderItemsInput = {
@@ -692,7 +692,7 @@ export type OrderUpdateWithoutOrderItemsInput = {
   method?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  paymentsId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
 }
 
@@ -707,7 +707,7 @@ export type OrderUncheckedUpdateWithoutOrderItemsInput = {
   method?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  paymentsId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OrderCreateManyUserInput = {
@@ -720,7 +720,7 @@ export type OrderCreateManyUserInput = {
   method: string
   amount: number
   paymentStatus: string
-  paymentsId: string
+  paymentsId?: string | null
 }
 
 export type OrderUpdateWithoutUserInput = {
@@ -733,7 +733,7 @@ export type OrderUpdateWithoutUserInput = {
   method?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  paymentsId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderItems?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
 }
 
@@ -747,7 +747,7 @@ export type OrderUncheckedUpdateWithoutUserInput = {
   method?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  paymentsId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
 }
 
@@ -761,7 +761,7 @@ export type OrderUncheckedUpdateManyWithoutUserInput = {
   method?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   paymentStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  paymentsId?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -886,7 +886,7 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     method: string
     amount: number
     paymentStatus: string
-    paymentsId: string
+    paymentsId: string | null
   }, ExtArgs["result"]["order"]>
   composites: {}
 }

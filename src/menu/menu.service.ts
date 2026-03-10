@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
+import { CreateMenuDto } from './dtos/create-menu.dto';
 
 @Injectable()
 export class MenuService {
@@ -10,6 +11,11 @@ export class MenuService {
       where: {
         isAvailable: true,
       },
+    });
+  }
+  async createMenu(data: CreateMenuDto) {
+    return this.prisma.menu.create({
+      data: { ...data, isAvailable: true },
     });
   }
 }

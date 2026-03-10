@@ -26,6 +26,20 @@ enum AddonType {
   shot
 }
 
+enum OrderStatus {
+  PENDING
+  PREPARING
+  READY
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  UNPAID
+  PAID
+  FAILED
+}
+
 model User {
   id        String   @id @default(uuid())
   username  String
@@ -71,7 +85,7 @@ model Menu {
   price       Float
   image       String?
 
-  isAvailable Boolean
+  isAvailable Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -90,21 +104,21 @@ model Addon {
 }
 
 model Order {
-  id            String   @id @default(uuid())
+  id            String        @id @default(uuid())
   userId        String
   totalPrice    Float
   pickupTime    DateTime
-  status        String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  status        OrderStatus   @default(PENDING)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
   method        String
   amount        Float
-  paymentStatus String
+  paymentStatus PaymentStatus @default(UNPAID)
 
   user       User        @relation(fields: [userId], references: [id])
   orderItems OrderItem[]
 
-  paymentsId String
+  paymentsId String?
 }
 
 model OrderItem {
