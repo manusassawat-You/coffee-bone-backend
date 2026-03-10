@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards, Param } from '@nestjs/common';
 import { MenuService } from './menu.service';
 import { CreateMenuDto } from './dtos/create-menu.dto';
 
@@ -11,10 +11,18 @@ import { Public } from 'src/auth/decorators/public.decorator';
 @Controller('menu')
 export class MenuController {
   constructor(private menuService: MenuService) {}
+
   @Public()
   @Get()
   getMenus() {
     return this.menuService.getMenus();
+  }
+
+  // ✅ เพิ่มอันนี้
+  @Public()
+  @Get(':id')
+  getMenuById(@Param('id') id: string) {
+    return this.menuService.getMenuById(id);
   }
 
   @UseGuards(AuthGuard, RoleGuard)

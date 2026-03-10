@@ -18,4 +18,9 @@ export class MenuService {
       data: { ...data, isAvailable: true },
     });
   }
+  async getMenuById(id: string) {
+    return this.prisma.menu.findUnique({
+      where: { id },
+    });
+  }
 }
