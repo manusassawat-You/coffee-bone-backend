@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Post, UseGuards, Param } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UseGuards,
+  Param,
+  Patch,
+  Delete,
+} from '@nestjs/common';
+
 import { MenuService } from './menu.service';
 import { CreateMenuDto } from './dtos/create-menu.dto';
 
@@ -18,7 +28,6 @@ export class MenuController {
     return this.menuService.getMenus();
   }
 
-  // ✅ เพิ่มอันนี้
   @Public()
   @Get(':id')
   getMenuById(@Param('id') id: string) {
@@ -29,7 +38,22 @@ export class MenuController {
   @Roles(Role.ADMIN)
   @Post()
   createMenu(@Body() data: CreateMenuDto) {
-    console.log(data, 'createMenu');
     return this.menuService.createMenu(data);
+  }
+
+  // ⭐ update menu
+  @UseGuards(AuthGuard, RoleGuard)
+  @Roles(Role.ADMIN)
+  @Patch(':id')
+  updateMenu(@Param('id') id: string, @Body() data: Partial<CreateMenuDto>) {
+    return this.menuService.updateMenu(id, data);
+  }
+
+  // ⭐ delete menu
+  @UseGuards(AuthGuard, RoleGuard)
+  @Roles(Role.ADMIN)
+  @Delete(':id')
+  deleteMenu(@Param('id') id: string) {
+    return this.menuService.deleteMenu(id);
   }
 }

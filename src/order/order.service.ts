@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { CheckoutDto } from './dtos/checkout.dto';
+import { OrderStatus } from 'src/database/generated/prisma/enums';
 
 @Injectable()
 export class OrderService {
@@ -108,6 +109,42 @@ export class OrderService {
       orderBy: {
         createdAt: 'desc',
       },
+    });
+  }
+  async updateStatus(orderId: string, status: OrderStatus) {
+    return this.prisma.order.update({
+      where: { id: orderId },
+      data: { status },
+    });
+  }
+  async deleteOrder(orderId: string) {
+    return this.prisma.$transaction(async (tx) => {
+      // หา order items ก่อน
+      const orderItems = await tx.orderItem.findMany({
+        where: { orderId },
+        select: { id: true },
+      });
+
+      const orderItemIds = orderItems.map((i) => i.id);
+
+      // ลบ addon ของ orderItem
+      await tx.orderItemAddon.deleteMany({
+        where: {
+          orderItemId: {
+            in: orderItemIds,
+          },
+        },
+      });
+
+      // ลบ order items
+      await tx.orderItem.deleteMany({
+        where: { orderId },
+      });
+
+      // ลบ order
+      return tx.order.delete({
+        where: { id: orderId },
+      });
     });
   }
 }
