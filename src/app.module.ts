@@ -11,6 +11,7 @@ import { AuthGuard } from './auth/guards/auth.guard';
 import { RoleGuard } from './auth/guards/role.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AuthModule } from './auth/auth.module';
     CartModule,
     OrderModule,
     AuthModule,
+    UploadModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: AuthGuard },
