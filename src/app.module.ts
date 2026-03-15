@@ -12,9 +12,14 @@ import { RoleGuard } from './auth/guards/role.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
 import { UploadModule } from './upload/upload.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
     DatabaseModule,
     UserModule,
     SecurityModule,
