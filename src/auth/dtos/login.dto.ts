@@ -1,7 +1,9 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { Trim } from 'src/common/decorators/trim.decorator';
 
 export class LoginDto {
+  @Trim()
+  @IsEmail({}, { message: 'Invalid email address' })
   @IsString({ message: 'Email must be a string' })
   @IsNotEmpty({ message: 'Email is required' })
   email: string;

@@ -10,7 +10,7 @@ import {
 import { OrderService } from './order.service';
 import { CheckoutDto } from './dtos/checkout.dto';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
-import { OrderStatus } from 'src/database/generated/prisma/enums';
+import { UpdateOrderStatusDto } from './dtos/update-order-status.dto';
 
 @Controller('order')
 export class OrderController {
@@ -27,7 +27,10 @@ export class OrderController {
   }
 
   @Patch(':id/status')
-  updateStatus(@Param('id') id: string, @Body() body: { status: OrderStatus }) {
+  updateStatus(
+    @Param('id') id: string,
+    @Body() body: UpdateOrderStatusDto,
+  ) {
     return this.orderService.updateStatus(id, body.status);
   }
   @Delete(':id')

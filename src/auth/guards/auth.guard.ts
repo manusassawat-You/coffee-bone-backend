@@ -38,7 +38,7 @@ export class AuthGuard implements CanActivate {
       if (error instanceof JsonWebTokenError)
         throw new UnauthorizedException('Invalid token');
       if (error instanceof TokenExpiredError)
-        throw new UnauthorizedException('Tokan has expired');
+        throw new UnauthorizedException('Token has expired');
       throw error;
     }
 

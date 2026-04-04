@@ -1,14 +1,27 @@
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { Logger } from '@nestjs/common';
-
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { AppModule } from './app.module';
+import { TypedConfigService } from './config/typed-config.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const typedConfigService = app.get(TypedConfigService);
+
+  app.enableShutdownHooks();
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+    }),
+  );
 
   app.enableCors({
-    origin: 'http://localhost:3000',
+    origin: typedConfigService.get('CORS_ORIGIN') ?? 'http://localhost:3000',
   });
 
   const config = new DocumentBuilder()
@@ -22,7 +35,7 @@ async function bootstrap() {
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
 
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(typedConfigService.get('PORT'));
 }
 
 bootstrap().catch((error) => {
