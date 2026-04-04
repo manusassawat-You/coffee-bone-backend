@@ -127,6 +127,7 @@ model Order {
   orderItems OrderItem[]
 
   paymentsId String?
+  comments   comment[]
 }
 
 model OrderItem {
@@ -149,4 +150,10 @@ model OrderItemAddon {
 
   orderItem OrderItem @relation(fields: [orderItemId], references: [id])
   addon     Addon     @relation(fields: [addonId], references: [id])
+}
+
+model comment {
+  title String @id
+
+  comment Order @relation(fields: [title], references: [id])
 }
