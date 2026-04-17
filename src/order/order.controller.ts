@@ -27,10 +27,7 @@ export class OrderController {
   }
 
   @Patch(':id/status')
-  updateStatus(
-    @Param('id') id: string,
-    @Body() body: UpdateOrderStatusDto,
-  ) {
+  updateStatus(@Param('id') id: string, @Body() body: UpdateOrderStatusDto) {
     return this.orderService.updateStatus(id, body.status);
   }
   @Delete(':id')

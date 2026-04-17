@@ -8,6 +8,10 @@ const envSchema = z.object({
   JWT_SECRET: z.string().min(32),
   JWT_EXPIRES_IN: z.coerce.number().int().positive(),
   CORS_ORIGIN: z.url().optional(),
+  APP_URL: z.url().optional(),
+  CLOUDINARY_NAME: z.string().min(1),
+  CLOUDINARY_KEY: z.string().min(1),
+  CLOUDINARY_SECRET: z.string().min(1),
 });
 
 export type EnvConfigType = z.infer<typeof envSchema>;

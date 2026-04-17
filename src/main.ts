@@ -30,7 +30,8 @@ async function bootstrap() {
     .setVersion('2.2')
     .addServer(
       process.env.NODE_ENV === 'production'
-        ? 'https://coffee-bone-backend.onrender.com'
+        ? (typedConfigService.get('APP_URL') ??
+            'https://coffee-bone-backend.onrender.com')
         : 'http://localhost:8000',
     )
     .addBearerAuth({ type: 'http', scheme: 'bearer' })
