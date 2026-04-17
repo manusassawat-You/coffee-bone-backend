@@ -21,7 +21,10 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: typedConfigService.get('CORS_ORIGIN') ?? 'http://localhost:3000',
+    origin:
+      typedConfigService.get('CORS_ORIGIN') ??
+      typedConfigService.get('FRONTEND_URL') ??
+      'http://localhost:3000',
   });
 
   const config = new DocumentBuilder()
