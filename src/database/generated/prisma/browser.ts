@@ -62,3 +62,8 @@ export type OrderItem = Prisma.OrderItemModel
  * 
  */
 export type OrderItemAddon = Prisma.OrderItemAddonModel
+/**
+ * Model comment
+ * 
+ */
+export type comment = Prisma.commentModel

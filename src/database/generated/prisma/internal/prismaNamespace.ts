@@ -392,7 +392,8 @@ export const ModelName = {
   Addon: 'Addon',
   Order: 'Order',
   OrderItem: 'OrderItem',
-  OrderItemAddon: 'OrderItemAddon'
+  OrderItemAddon: 'OrderItemAddon',
+  comment: 'comment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -408,7 +409,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "cart" | "cartItem" | "cartItemAddon" | "menu" | "addon" | "order" | "orderItem" | "orderItemAddon"
+    modelProps: "user" | "cart" | "cartItem" | "cartItemAddon" | "menu" | "addon" | "order" | "orderItem" | "orderItemAddon" | "comment"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1078,6 +1079,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    comment: {
+      payload: Prisma.$commentPayload<ExtArgs>
+      fields: Prisma.commentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.commentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$commentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.commentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$commentPayload>
+        }
+        findFirst: {
+          args: Prisma.commentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$commentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.commentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$commentPayload>
+        }
+        findMany: {
+          args: Prisma.commentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$commentPayload>[]
+        }
+        create: {
+          args: Prisma.commentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$commentPayload>
+        }
+        createMany: {
+          args: Prisma.commentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.commentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$commentPayload>[]
+        }
+        delete: {
+          args: Prisma.commentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$commentPayload>
+        }
+        update: {
+          args: Prisma.commentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$commentPayload>
+        }
+        deleteMany: {
+          args: Prisma.commentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.commentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.commentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$commentPayload>[]
+        }
+        upsert: {
+          args: Prisma.commentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$commentPayload>
+        }
+        aggregate: {
+          args: Prisma.CommentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateComment>
+        }
+        groupBy: {
+          args: Prisma.commentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CommentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.commentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CommentCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1220,6 +1295,13 @@ export const OrderItemAddonScalarFieldEnum = {
 } as const
 
 export type OrderItemAddonScalarFieldEnum = (typeof OrderItemAddonScalarFieldEnum)[keyof typeof OrderItemAddonScalarFieldEnum]
+
+
+export const CommentScalarFieldEnum = {
+  title: 'title'
+} as const
+
+export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1474,6 +1556,7 @@ export type GlobalOmitConfig = {
   order?: Prisma.OrderOmit
   orderItem?: Prisma.OrderItemOmit
   orderItemAddon?: Prisma.OrderItemAddonOmit
+  comment?: Prisma.commentOmit
 }
 
 /* Types for Logging */

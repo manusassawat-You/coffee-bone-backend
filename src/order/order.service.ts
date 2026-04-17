@@ -2,6 +2,29 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { CheckoutDto } from './dtos/checkout.dto';
 import { OrderStatus } from 'src/database/generated/prisma/enums';
+import type { CartGetPayload } from 'src/database/generated/prisma/models/Cart';
+
+type CheckoutCart = CartGetPayload<{
+  include: {
+    cartItems: {
+      include: {
+        menu: true;
+        addons: {
+          include: {
+            addon: true;
+          };
+        };
+      };
+    };
+  };
+}>;
+
+type CheckoutCartItem = CheckoutCart['cartItems'][number];
+type CheckoutCartItemAddon = CheckoutCartItem['addons'][number];
+type OrderTransactionClient = Pick<
+  PrismaService,
+  'order' | 'orderItem' | 'orderItemAddon' | 'cartItemAddon' | 'cartItem'
+>;
 
 @Injectable()
 export class OrderService {
@@ -28,16 +51,24 @@ export class OrderService {
       throw new BadRequestException('Cart is empty');
     }
 
-    const totalPrice = cart.cartItems.reduce((sum, item) => {
-      const addonPrice = item.addons.reduce((s, a) => s + a.addon.price, 0);
+    const totalPrice = cart.cartItems.reduce(
+      (sum: number, item: CheckoutCartItem) => {
+        const addonPrice = item.addons.reduce(
+          (s: number, a: CheckoutCartItemAddon) => s + a.addon.price,
+          0,
+        );
 
-      const price = item.menu.price + addonPrice;
+        const price = item.menu.price + addonPrice;
 
-      return sum + price * item.quantity;
-    }, 0);
+        return sum + price * item.quantity;
+      },
+      0,
+    );
 
     return this.prisma.$transaction(async (tx) => {
-      const order = await tx.order.create({
+      const txClient = tx as unknown as OrderTransactionClient;
+
+      const order = await txClient.order.create({
         data: {
           userId,
           totalPrice,
@@ -50,11 +81,14 @@ export class OrderService {
       });
 
       for (const item of cart.cartItems) {
-        const addonPrice = item.addons.reduce((s, a) => s + a.addon.price, 0);
+        const addonPrice = item.addons.reduce(
+          (s: number, a: CheckoutCartItemAddon) => s + a.addon.price,
+          0,
+        );
 
         const itemPrice = item.menu.price + addonPrice;
 
-        const orderItem = await tx.orderItem.create({
+        const orderItem = await txClient.orderItem.create({
           data: {
             orderId: order.id,
             menuId: item.menuId,
@@ -64,8 +98,8 @@ export class OrderService {
         });
 
         if (item.addons.length > 0) {
-          await tx.orderItemAddon.createMany({
-            data: item.addons.map((a) => ({
+          await txClient.orderItemAddon.createMany({
+            data: item.addons.map((a: CheckoutCartItemAddon) => ({
               orderItemId: orderItem.id,
               addonId: a.addonId,
             })),
@@ -73,7 +107,7 @@ export class OrderService {
         }
       }
 
-      await tx.cartItemAddon.deleteMany({
+      await txClient.cartItemAddon.deleteMany({
         where: {
           cartItem: {
             cartId: cart.id,
@@ -81,7 +115,7 @@ export class OrderService {
         },
       });
 
-      await tx.cartItem.deleteMany({
+      await txClient.cartItem.deleteMany({
         where: {
           cartId: cart.id,
         },
@@ -119,16 +153,18 @@ export class OrderService {
   }
   async deleteOrder(orderId: string) {
     return this.prisma.$transaction(async (tx) => {
+      const txClient = tx as unknown as OrderTransactionClient;
+
       // หา order items ก่อน
-      const orderItems = await tx.orderItem.findMany({
+      const orderItems = await txClient.orderItem.findMany({
         where: { orderId },
         select: { id: true },
       });
 
-      const orderItemIds = orderItems.map((i) => i.id);
+      const orderItemIds = orderItems.map((i: { id: string }) => i.id);
 
       // ลบ addon ของ orderItem
-      await tx.orderItemAddon.deleteMany({
+      await txClient.orderItemAddon.deleteMany({
         where: {
           orderItemId: {
             in: orderItemIds,
@@ -137,12 +173,12 @@ export class OrderService {
       });
 
       // ลบ order items
-      await tx.orderItem.deleteMany({
+      await txClient.orderItem.deleteMany({
         where: { orderId },
       });
 
       // ลบ order
-      return tx.order.delete({
+      return txClient.order.delete({
         where: { id: orderId },
       });
     });
