@@ -28,7 +28,11 @@ async function bootstrap() {
     .setTitle('Fakebuck API')
     .setDescription('This is a simple Fakebuck api')
     .setVersion('2.2')
-    .addServer('http://localhost:8000')
+    .addServer(
+      process.env.NODE_ENV === 'production'
+        ? 'https://coffee-bone-backend.onrender.com'
+        : 'http://localhost:8000',
+    )
     .addBearerAuth({ type: 'http', scheme: 'bearer' })
     .build();
 
