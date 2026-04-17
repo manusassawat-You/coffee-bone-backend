@@ -1,8 +1,9 @@
 require('dotenv/config');
 
+const bcrypt = require('bcrypt');
 const { PrismaPg } = require('@prisma/adapter-pg');
 const { PrismaClient } = require('../dist/database/generated/prisma/client');
-const { AddonType } = require('../dist/database/generated/prisma/enums');
+const { AddonType, Role } = require('../dist/database/generated/prisma/enums');
 
 const prisma = new PrismaClient({
   adapter: new PrismaPg({
@@ -84,7 +85,37 @@ const addons = [
   },
 ];
 
+const users = [
+  {
+    email: 'user1@gmail.com',
+    username: 'user1',
+    role: Role.USER,
+  },
+  {
+    email: 'admin1@gmail.com',
+    username: 'admin1',
+    role: Role.ADMIN,
+  },
+];
+
 async function main() {
+  const passwordHash = await bcrypt.hash('123456', 12);
+
+  for (const user of users) {
+    await prisma.user.upsert({
+      where: { email: user.email },
+      update: {
+        username: user.username,
+        role: user.role,
+        password: passwordHash,
+      },
+      create: {
+        ...user,
+        password: passwordHash,
+      },
+    });
+  }
+
   const customMenuCount = await prisma.menu.count({
     where: {
       id: {
