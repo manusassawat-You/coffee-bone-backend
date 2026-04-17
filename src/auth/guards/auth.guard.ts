@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   CanActivate,
   ExecutionContext,
   Injectable,
@@ -29,7 +28,7 @@ export class AuthGuard implements CanActivate {
 
     const [bearer, token] = request.headers.authorization?.split(' ') ?? [];
     if (bearer !== 'Bearer' || !token)
-      throw new BadRequestException('Invalid authorization header');
+      throw new UnauthorizedException('Missing or invalid authorization header');
 
     try {
       const payload = await this.authTokenService.verify(token);
