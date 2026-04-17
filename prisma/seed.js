@@ -37,6 +37,8 @@ const menus = [
   },
 ];
 
+const seedMenuIds = menus.map((menu) => menu.id);
+
 const addons = [
   {
     id: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1',
@@ -83,20 +85,44 @@ const addons = [
 ];
 
 async function main() {
-  for (const menu of menus) {
-    await prisma.menu.upsert({
-      where: { id: menu.id },
-      update: {
-        menuName: menu.menuName,
-        description: menu.description,
-        price: menu.price,
-        isAvailable: true,
+  const customMenuCount = await prisma.menu.count({
+    where: {
+      id: {
+        notIn: seedMenuIds,
       },
-      create: {
-        ...menu,
-        isAvailable: true,
+    },
+  });
+
+  if (customMenuCount > 0) {
+    await prisma.menu.deleteMany({
+      where: {
+        id: {
+          in: seedMenuIds,
+        },
+        cartItems: {
+          none: {},
+        },
+        orderItems: {
+          none: {},
+        },
       },
     });
+  } else {
+    for (const menu of menus) {
+      await prisma.menu.upsert({
+        where: { id: menu.id },
+        update: {
+          menuName: menu.menuName,
+          description: menu.description,
+          price: menu.price,
+          isAvailable: true,
+        },
+        create: {
+          ...menu,
+          isAvailable: true,
+        },
+      });
+    }
   }
 
   for (const addon of addons) {
